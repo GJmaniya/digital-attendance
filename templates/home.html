@@ -53,7 +53,7 @@
             color: #00aaff;
             font-size: 25px;
             transition: all 0.3s;
-            transition: all 0.3s ;
+            transition: all 0.3s;
         }
 
         .main-box {
@@ -111,7 +111,7 @@
         }
 
         .btn:hover {
-            background-color: darkgray;
+            background-color: darkblue;
         }
     </style>
 </head>
@@ -131,12 +131,27 @@
     <!-- Main Content Box with Buttons -->
     <div class="main-box">
         <h1>Welcome to Face Recognition System</h1>
-        <h3>
-            <p>This system uses AI to detect and recognize faces, allowing secure attendance tracking.</p>
-        </h3>
-        <button>Start Recognition</button>
+        <p>This system uses AI to detect and recognize faces, allowing secure attendance tracking.</p>
+        <button class="btn" id="start-recognition">Start Recognition</button>
+        <p id="status-message"></p>
     </div>
 
+    <script>
+        document.getElementById("start-recognition").addEventListener("click", function () {
+            fetch("/recognize")
+                .then(response => {
+                    if (response.ok) {
+                        alert("✅ Recognition Started! Look at the camera.");
+                    } else {
+                        alert("❌ Error: Unable to start recognition!");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("❌ Server not responding!");
+                });
+        });
+    </script>
 
 </body>
 
