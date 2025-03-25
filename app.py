@@ -29,10 +29,11 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/register", methods=["POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
         return render_template("register.html")  # Load the form
+
     """Register a new user by capturing their face"""
     user_name = request.form["name"].strip()
     user_id = request.form["user_id"].strip()
@@ -78,6 +79,7 @@ def register():
     })
 
     return "✅ User Registered Successfully!"
+
     
 
 @app.route("/train")
@@ -168,6 +170,10 @@ def recognize_faces():
     cv2.destroyAllWindows()
     return redirect(url_for("home"))
 
+@app.route("/attendance")
+def attendance():
+    records = list(attendance_collection.find())
+    return render_template("attendance.html", records=records)
 
 if __name__ == "__main__":
     app.run(debug=True)
